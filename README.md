@@ -82,7 +82,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-GitHub Repository: [https://github.com/CeyInvoice/ceyinvoice](https://github.com/CeyInvoice/ceyinvoice)
+GitHub Repository: [https://github.com/JuvIxor/ceyinvoice](https://github.com/JuvIxor/ceyinvoice)
 
 ## 🙏 Acknowledgements
 
