@@ -20,11 +20,18 @@ function ExportPage() {
     // Get the data from localStorage (set by the export button)
     const storedData = localStorage.getItem('invoiceExportData');
     console.log('Retrieved stored data:', storedData);
+    console.log('URL parameters - template:', template, 'invoiceNumber:', invoiceNumber);
     
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
         console.log('Successfully parsed export data:', parsedData);
+        
+        // Ensure the template value from URL is used if available
+        if (template && ['basic', 'minimal', 'modern'].includes(template)) {
+          parsedData.template = template;
+        }
+        
         setExportData(parsedData);
         
         // Clear localStorage data after retrieving it
@@ -37,7 +44,7 @@ function ExportPage() {
           console.log('Using URL parameters as fallback');
           setExportData({
             formData: { invoiceNumber },
-            template,
+            template: template,
             directDownload
           });
         }
@@ -47,7 +54,7 @@ function ExportPage() {
       console.log('Using URL parameters for export data');
       setExportData({
         formData: { invoiceNumber },
-        template,
+        template: template,
         directDownload
       });
     } else {
@@ -73,6 +80,8 @@ function ExportPage() {
     );
   }
 
+  console.log('Rendering ExportInvoice with template:', exportData.template);
+  
   return (
     <ExportInvoice 
       formData={exportData.formData} 

@@ -480,15 +480,18 @@ function ExportInvoice({ formData, template, paperSize = 'a4', directDownload = 
 
   // Render the active template based on the template prop
   const renderTemplate = () => {
-    console.log('Rendering template:', template);
+    console.log('Rendering template in ExportInvoice:', template);
     
     try {
       switch (template) {
         case 'basic':
+          console.log('Using BasicTemplate for export');
           return <BasicTemplate formData={formData} />;
         case 'minimal':
+          console.log('Using MinimalTemplate for export');
           return <MinimalTemplate formData={formData} />;
         case 'modern':
+          console.log('Using ModernTemplate for export');
           return <ModernTemplate formData={formData} />;
         default:
           console.log('Using default template (basic) for unknown template:', template);

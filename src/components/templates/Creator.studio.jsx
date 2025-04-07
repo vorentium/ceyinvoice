@@ -324,13 +324,13 @@ function CreatorStudioTemplate() {
   const renderActiveTemplate = () => {
     switch (activeTemplate) {
       case 'basic':
-        return <BasicTemplate formData={formData} />;
+        return <BasicTemplate formData={formData} activeTemplate={activeTemplate} />;
       case 'minimal':
-        return <MinimalTemplate formData={formData} />;
+        return <MinimalTemplate formData={formData} activeTemplate={activeTemplate} />;
       case 'modern':
-        return <ModernTemplate formData={formData} />;
+        return <ModernTemplate formData={formData} activeTemplate={activeTemplate} />;
       default:
-        return <BasicTemplate formData={formData} />;
+        return <BasicTemplate formData={formData} activeTemplate={activeTemplate} />;
     }
   };
 
@@ -520,6 +520,7 @@ function CreatorStudioTemplate() {
           formData={formData} 
           handleTemplateSelect={handleTemplateSelect}
           handleSaveInvoice={handleSaveInvoice}
+          activeTemplate={activeTemplate}
         >
           {renderActiveTemplate()}
         </InvoicePreview>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { jsPDF } from 'jspdf';
 
-function InvoicePreview({ formData, handleTemplateSelect, handleSaveInvoice, children }) {
+function InvoicePreview({ formData, handleTemplateSelect, handleSaveInvoice, children, activeTemplate: propActiveTemplate }) {
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const [showTemplateShowcase, setShowTemplateShowcase] = useState(false);
   const [zoom, setZoom] = useState(1);
@@ -13,8 +13,22 @@ function InvoicePreview({ formData, handleTemplateSelect, handleSaveInvoice, chi
   const [pdfDataUrl, setPdfDataUrl] = useState(null);
   const [pdfBlob, setPdfBlob] = useState(null);
   
-  // Get the active template from the children prop
+  // Get the active template - prioritize prop over inferring from children
   const getActiveTemplate = () => {
+    // If prop is directly provided, use it
+    if (propActiveTemplate && ['basic', 'minimal', 'modern'].includes(propActiveTemplate)) {
+      return propActiveTemplate;
+    }
+    
+    // First try to get the template directly from the children props if it exists
+    try {
+      if (children && children.props && children.props.activeTemplate) {
+        return children.props.activeTemplate;
+      }
+    } catch (e) {
+      console.log('Error accessing children props:', e);
+    }
+    
     // Check which template is currently being rendered
     if (children) {
       // If children is a React element
@@ -56,6 +70,7 @@ function InvoicePreview({ formData, handleTemplateSelect, handleSaveInvoice, chi
   };
   
   const activeTemplate = getActiveTemplate();
+  console.log('Active template determined by InvoicePreview:', activeTemplate);
   
   useEffect(() => {
     const checkScreenSize = () => {
