@@ -24,12 +24,14 @@ function Footer() {
 
   // Gradient style for the CEY logo
   const ceyLogoStyle = {
-    opacity: 0.4,
-    background: `linear-gradient(to bottom, var(--color-primary) 20%, black 50%)`,
+    opacity: 0.5,
+    background: `linear-gradient(to bottom, var(--var-primary) 30%, black 70%)`,
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     MozBackgroundClip: 'text',
     MozTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    color: 'transparent',
   };
 
   return (
