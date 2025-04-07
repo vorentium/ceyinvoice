@@ -10,6 +10,17 @@ export default defineConfig({
     include: ['react', 'react-dom', 'react-router-dom'],
     force: true
   },
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          pdf: ['jspdf', 'html2canvas', 'file-saver']
+        }
+      }
+    }
+  },
   server: {
     hmr: true
   }

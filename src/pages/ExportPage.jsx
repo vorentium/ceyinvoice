@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import ExportInvoice from '../components/molecules/ExportInvoice';
 import '../styles/ExportStyles.css';
 
 function ExportPage() {
   const [exportData, setExportData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
+    // First try to get data from URL parameters
+    const searchParams = new URLSearchParams(location.search);
+    const template = searchParams.get('t');
+    const invoiceNumber = searchParams.get('n');
+    const directDownload = searchParams.get('d') === 'true';
+    
+    const fromUrlParams = template && invoiceNumber;
+    
     // Get the data from localStorage (set by the export button)
     const storedData = localStorage.getItem('invoiceExportData');
     console.log('Retrieved stored data:', storedData);
@@ -21,12 +31,30 @@ function ExportPage() {
         localStorage.removeItem('invoiceExportData');
       } catch (error) {
         console.error('Error parsing export data:', error);
+        
+        // If localStorage data fails but we have URL params, use them as fallback
+        if (fromUrlParams) {
+          console.log('Using URL parameters as fallback');
+          setExportData({
+            formData: { invoiceNumber },
+            template,
+            directDownload
+          });
+        }
       }
+    } else if (fromUrlParams) {
+      // If no localStorage data but we have URL params, use them
+      console.log('Using URL parameters for export data');
+      setExportData({
+        formData: { invoiceNumber },
+        template,
+        directDownload
+      });
     } else {
-      console.log('No invoiceExportData found in localStorage');
+      console.log('No invoiceExportData found in localStorage or URL parameters');
     }
     setLoading(false);
-  }, []);
+  }, [location]);
 
   if (loading) {
     return (

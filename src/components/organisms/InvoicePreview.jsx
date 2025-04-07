@@ -149,10 +149,24 @@ function InvoicePreview({ formData, handleTemplateSelect, handleSaveInvoice, chi
       template: activeTemplate
     };
     
+    // Store in localStorage
     localStorage.setItem('invoiceExportData', JSON.stringify(exportData));
     
-    // Open the export page in a new tab
-    window.open('/export-invoice', '_blank');
+    try {
+      // Also create a compressed version of the same data in URL parameters
+      const compressedData = {
+        t: activeTemplate, // template
+        n: formData.invoiceNumber || 'invoice' // invoice number for filename
+      };
+      
+      // Open the export page in a new tab with minimal parameters
+      const searchParams = new URLSearchParams(compressedData).toString();
+      window.open(`/export-invoice?${searchParams}`, '_blank');
+    } catch (err) {
+      console.error('Error opening export page:', err);
+      // Fallback to the original method
+      window.open('/export-invoice', '_blank');
+    }
   };
   
   // Handle generate PDF button click
@@ -170,11 +184,26 @@ function InvoicePreview({ formData, handleTemplateSelect, handleSaveInvoice, chi
     localStorage.setItem('invoiceExportData', JSON.stringify(exportData));
     
     // Clear loading state after short delay
-      setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
-      // Open the export page in a new tab
-      window.open('/export-invoice', '_blank');
-      }, 300);
+      
+      try {
+        // Also create a compressed version of the same data in URL parameters
+        const compressedData = {
+          t: activeTemplate, // template
+          n: formData.invoiceNumber || 'invoice', // invoice number for filename
+          d: 'true' // direct download flag
+        };
+        
+        // Open the export page in a new tab with minimal parameters
+        const searchParams = new URLSearchParams(compressedData).toString();
+        window.open(`/export-invoice?${searchParams}`, '_blank');
+      } catch (err) {
+        console.error('Error opening export page:', err);
+        // Fallback to the original method
+        window.open('/export-invoice', '_blank');
+      }
+    }, 300);
   };
   
   return (

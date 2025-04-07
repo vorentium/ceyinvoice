@@ -47,9 +47,16 @@ function ExportInvoice({ formData, template, paperSize = 'a4', directDownload = 
       console.log('All fonts loaded successfully');
       // If directDownload is true, automatically download the PDF when component mounts
       if (directDownload) {
+        console.log('Direct download requested, initiating PDF download...');
         setTimeout(() => {
-          downloadAsPdf();
-        }, 1000); // Small delay to ensure everything is rendered
+          try {
+            downloadAsPdf();
+          } catch (error) {
+            console.error('Error in direct download:', error);
+            // Try to show an error message
+            setError('Error generating PDF. Please try again.');
+          }
+        }, 1500); // Slightly increased delay to ensure everything is rendered
       }
     }).catch(err => {
       console.error('Font loading error:', err);
