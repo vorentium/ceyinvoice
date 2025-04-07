@@ -2,7 +2,7 @@ import React from 'react';
 
 function GitHubBtn() {
   const handleClick = () => {
-    window.open('https://github.com/CeyInvoice/ceyinvoice', '_blank');
+    window.open('https://github.com/JuvIxor/ceyinvoice', '_blank');
   };
 
   return (
