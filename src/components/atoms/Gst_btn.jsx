@@ -1,13 +1,16 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-function GstBtn() {
+const GstBtn = () => {
   return (
-    <Link to="/creator-studio" className="inline-block">
-      <button className="bg-white text-black border-2 border-var-primary font-sans rounded-full px-6 py-3 h-auto w-auto flex items-center justify-center text-sm sm:text-base md:text-lg font-medium transition-all duration-300 hover:bg-var-primary hover:text-white focus:outline-none focus:ring-2 ring-var-primary focus:ring-opacity-50">
+    <Link to="/auth">
+      <button className="bg-[var(--color-black-300)] w-50 h-15 text-dark font-bold px-4 py-2 
+      rounded-full md:w-60 md:h-15 lg:w-70 lg:h-15 md:text-lg lg:text-xl cursor-pointer 
+      hover:scale-105 transition-all duration-300 ease-in-out active:scale-95 font-poppins-semibold">
         GET STARTED NOW
       </button>
     </Link>
   );
-}
+};
 
-export default GstBtn; 
+export default GstBtn;

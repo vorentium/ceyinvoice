@@ -1,0 +1,42 @@
+/* Sticky sidebar styles */
+.sticky-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh; /* Full viewport height */
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #cbd5e0 #f7fafc; /* For Firefox */
+}
+
+/* Webkit scrollbar styling */
+.sticky-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sticky-sidebar::-webkit-scrollbar-track {
+  background: #f7fafc;
+}
+
+.sticky-sidebar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+  border-radius: 20px;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .sticky-sidebar {
+    /* Use position fixed instead of sticky for iOS */
+    position: fixed;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Fix for mobile view */
+@media (max-width: 1023px) {
+  .sticky-sidebar {
+    height: 100%;
+    overflow-y: auto;
+  }
+} 
