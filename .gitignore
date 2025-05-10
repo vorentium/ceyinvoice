@@ -35,5 +35,4 @@ dist-ssr
 .env.test.production.local
 .env.test.development.local
 .env.test.production.local
-supabaseClient.js
-formatCurrency.js
+
